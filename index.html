@@ -3,433 +3,526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disruptive Shoes - Tienda Oficial</title>
+    <title>Disruptive Shoes | Zapatillas urbanas Nike, Adidas, Converse y New Balance</title>
+    <meta name="description" content="Tienda de zapatillas urbanas: Nike, Adidas, Converse y New Balance. Mira el catálogo, revisa la guía de tallas y haz tu pedido por WhatsApp con envíos seguros a todo el país.">
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <style>
-        /* Efecto hover suave para tarjetas y marcas en escritorio */
+        html { scroll-behavior: smooth; }
+        section[id] { scroll-margin-top: 80px; } /* para que el menú fijo no tape los títulos */
+
+        /* Marcas */
         .brand-circle {
             width: 75px;
             height: 75px;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        @media (min-width: 992px) {
-            .brand-circle {
-                width: 90px;
-                height: 90px;
-            }
-            .card-img-top {
-                height: 200px !important;
-            }
-        }
-        .brand-circle:hover, .card-product:hover {
+
+        /* Tarjetas de producto */
+        .card-product { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .card-product .card-img-top { height: 150px; }
+
+        .brand-circle:hover,
+        .card-product:hover {
             transform: translateY(-4px);
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12) !important;
         }
-        .card-product {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        /* Reemplazo de las clases que no existen en Bootstrap (h4-lg, h3-md, fs-6-md, etc.) */
+        .titulo-seccion { font-size: 1rem; }
+        .precio { font-size: 0.9rem; font-weight: 700; }
+        .banner-titulo { font-size: 1.25rem; }
+        .marca-nombre { font-size: 1.25rem; }
+
+        @media (min-width: 768px) {
+            .titulo-seccion { font-size: 1.25rem; }
+            .banner-titulo { font-size: 1.5rem; }
+            .precio { font-size: 1rem; }
         }
+
+        @media (min-width: 992px) {
+            .brand-circle { width: 90px; height: 90px; }
+            .card-product .card-img-top { height: 200px; }
+            .marca-nombre { font-size: 1.5rem; }
+        }
+
+        /* Accesibilidad: foco visible para quien navega con teclado */
+        :focus-visible {
+            outline: 3px solid #0d6efd;
+            outline-offset: 2px;
+        }
+
+        /* Accesibilidad: respeta a quien desactiva animaciones */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .brand-circle, .card-product { transition: none; }
+            .brand-circle:hover, .card-product:hover { transform: none; }
+        }
+
+        /* Botones de redes sociales (área táctil de 44px) */
+        .red-social {
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .mapa-contenedor iframe { width: 100%; height: 100%; min-height: 320px; border: 0; }
     </style>
 </head>
 <body class="bg-light text-dark">
 
-    <!-- 1. ENCABEZADO Y NAVEGACIÓN ADAPTATIVA -->
-    <header class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom px-3 px-lg-4 shadow-sm">
-        <div class="container-xl">
-            <!-- Logo y Marca -->
-            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-                <div class="rounded-circle overflow-hidden border border-2 border-dark flex-shrink-0" style="width: 42px; height: 42px;">
-                    <img src="img/logo.jpeg" alt="Logo Disruptive Shoes" class="w-100 h-100 object-fit-cover" onerror="this.src='https://via.placeholder.com/42/f8f9fa/333333?text=DS'">
+    <!-- Enlace para saltar directo al contenido (lectores de pantalla y teclado) -->
+    <a class="visually-hidden-focusable btn btn-dark position-absolute top-0 start-0 m-2" style="z-index: 2000;" href="#contenido">Saltar al contenido</a>
+
+    <!-- 1. ENCABEZADO Y NAVEGACIÓN -->
+    <header class="sticky-top bg-white border-bottom shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light px-3 px-lg-4" aria-label="Navegación principal">
+            <div class="container-xl">
+                <!-- Logo y marca -->
+                <a class="navbar-brand d-flex align-items-center gap-2" href="#" aria-label="Disruptive Shoes, ir al inicio">
+                    <span class="rounded-circle overflow-hidden border border-2 border-dark flex-shrink-0 d-inline-block" style="width: 42px; height: 42px;">
+                        <img src="img/logo.jpeg" alt="" width="42" height="42" class="w-100 h-100 object-fit-cover"
+                             onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2242%22 height=%2242%22%3E%3Crect width=%2242%22 height=%2242%22 fill=%22%23f8f9fa%22/%3E%3Ctext x=%2221%22 y=%2227%22 font-size=%2216%22 font-family=%22Arial%22 font-weight=%22bold%22 text-anchor=%22middle%22 fill=%22%23333%22%3EDS%3C/text%3E%3C/svg%3E';">
+                    </span>
+                    <span class="h5 mb-0 fw-bold text-dark text-uppercase">Disruptive Shoes</span>
+                </a>
+
+                <!-- Botón menú lateral (celular) -->
+                <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-label="Abrir menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Menú horizontal (computadora) -->
+                <div class="collapse navbar-collapse justify-content-end">
+                    <ul class="navbar-nav gap-3 gap-lg-4 fw-semibold fs-6 align-items-center">
+                        <li class="nav-item"><a href="#" class="nav-link text-dark active" aria-current="page"><i class="bi bi-house me-1 text-warning" aria-hidden="true"></i> Inicio</a></li>
+                        <li class="nav-item"><a href="#catalogo" class="nav-link text-dark"><i class="bi bi-grid me-1 text-warning" aria-hidden="true"></i> Catálogo</a></li>
+                        <li class="nav-item"><a href="#tallas" class="nav-link text-dark"><i class="bi bi-table me-1 text-warning" aria-hidden="true"></i> Guía de tallas</a></li>
+                        <li class="nav-item"><a href="#contacto" class="nav-link text-dark"><i class="bi bi-geo-alt me-1 text-warning" aria-hidden="true"></i> Contacto</a></li>
+                        <li class="nav-item">
+                            <a href="https://wa.me/593963606754" target="_blank" rel="noopener noreferrer" class="btn btn-outline-success btn-sm px-3 fw-bold">
+                                <i class="bi bi-whatsapp me-1" aria-hidden="true"></i> WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <span class="h5 h4-lg mb-0 fw-bold text-dark text-uppercase">Disruptive Shoes</span>
-            </a>
-
-            <!-- Botón Menú Lateral (Celular) -->
-            <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-label="Menú">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Menú Horizontal (Computadora) -->
-            <div class="collapse navbar-collapse justify-content-end" id="navbarDesktop">
-                <ul class="navbar-nav gap-3 gap-lg-4 fw-semibold fs-6 align-items-center">
-                    <li class="nav-item"><a href="#" class="nav-link text-dark active"><i class="bi bi-house me-1 text-warning"></i> Inicio</a></li>
-                    <li class="nav-item"><a href="#catalogo" class="nav-link text-dark"><i class="bi bi-grid me-1 text-warning"></i> Catálogo</a></li>
-                    <li class="nav-item"><a href="#tallas" class="nav-link text-dark"><i class="bi bi-table me-1 text-warning"></i> Guía de Tallas</a></li>
-                    <li class="nav-item">
-                        <a href="#contacto" class="btn btn-outline-success btn-sm px-3 fw-bold">
-                            <i class="bi bi-whatsapp me-1"></i> WhatsApp
-                        </a>
-                    </li>
-                </ul>
             </div>
-        </div>
+        </nav>
     </header>
 
-    <!-- Menú Desplegable (Offcanvas Móvil) -->
-    <div class="offcanvas offcanvas-start bg-white text-dark border-end" tabindex="-1" id="menuLateral">
+    <!-- Menú desplegable (offcanvas móvil) -->
+    <div class="offcanvas offcanvas-start bg-white text-dark border-end" tabindex="-1" id="menuLateral" aria-labelledby="menuLateralTitulo">
         <div class="offcanvas-header border-bottom bg-light">
-            <h5 class="offcanvas-title fw-bold">Menú</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+            <h2 class="offcanvas-title h5 fw-bold" id="menuLateralTitulo">Menú</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar menú"></button>
         </div>
         <div class="offcanvas-body">
-            <ul class="nav flex-column gap-3">
-                <li class="nav-item"><a href="#" class="nav-link text-dark fs-5"><i class="bi bi-house me-2 text-warning"></i> Inicio</a></li>
-                <li class="nav-item"><a href="#catalogo" class="nav-link text-dark fs-5"><i class="bi bi-grid me-2 text-warning"></i> Catálogo</a></li>
-                <li class="nav-item"><a href="#tallas" class="nav-link text-dark fs-5"><i class="bi bi-table me-2 text-warning"></i> Guía de Tallas</a></li>
-                <li class="nav-item"><a href="#contacto" class="nav-link text-dark fs-5"><i class="bi bi-whatsapp me-2 text-success"></i> WhatsApp</a></li>
-            </ul>
+            <nav aria-label="Menú móvil">
+                <ul class="nav flex-column gap-3">
+                    <li class="nav-item"><a href="#" class="nav-link text-dark fs-5" data-bs-dismiss="offcanvas"><i class="bi bi-house me-2 text-warning" aria-hidden="true"></i> Inicio</a></li>
+                    <li class="nav-item"><a href="#catalogo" class="nav-link text-dark fs-5" data-bs-dismiss="offcanvas"><i class="bi bi-grid me-2 text-warning" aria-hidden="true"></i> Catálogo</a></li>
+                    <li class="nav-item"><a href="#tallas" class="nav-link text-dark fs-5" data-bs-dismiss="offcanvas"><i class="bi bi-table me-2 text-warning" aria-hidden="true"></i> Guía de tallas</a></li>
+                    <li class="nav-item"><a href="#contacto" class="nav-link text-dark fs-5" data-bs-dismiss="offcanvas"><i class="bi bi-geo-alt me-2 text-warning" aria-hidden="true"></i> Contacto</a></li>
+                    <li class="nav-item"><a href="https://wa.me/593963606754" target="_blank" rel="noopener noreferrer" class="nav-link text-dark fs-5"><i class="bi bi-whatsapp me-2 text-success" aria-hidden="true"></i> WhatsApp<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 
-    <main class="container-xl my-3 my-md-4">
+    <main id="contenido" class="container-xl my-3 my-md-4">
 
-        <!-- 2. DESCRIPCIÓN DE LA MARCA -->
-        <section class="mb-3 mb-md-4">
+        <!-- 2. TÍTULO PRINCIPAL Y DESCRIPCIÓN -->
+        <section class="mb-3 mb-md-4" aria-labelledby="titulo-principal">
             <div class="p-3 p-md-4 bg-white border rounded-3 text-center shadow-sm">
-                <p class="small fs-6-md text-secondary mb-0">
-                    Estilo urbano sin reglas. Encuentra los mejores modelos y marcas exclusivas con envíos seguros a todo el país.
+                <h1 id="titulo-principal" class="h3 fw-bold text-dark mb-2">Disruptive Shoes</h1>
+                <p class="text-secondary mb-2">
+                    Estilo urbano sin reglas. En Disruptive Shoes encuentras modelos de las marcas que marcan tendencia, listos para el día a día, el deporte y la calle.
+                </p>
+                <p class="text-secondary mb-0">
+                    Revisa el catálogo, consulta tu talla en la guía y haz tu pedido directo por WhatsApp. Hacemos envíos seguros a todo el país.
                 </p>
             </div>
         </section>
 
         <!-- 3. BANNERS DESTACADOS -->
-        <section class="row g-2 g-md-4 mb-4 mb-md-5">
+        <section class="row g-2 g-md-4 mb-4 mb-md-5" aria-label="Destacados">
             <div class="col-12 col-md-6">
                 <div class="p-3 p-md-4 bg-white border border-dark rounded-3 text-center shadow-sm h-100 d-flex align-items-center justify-content-center">
-                    <h2 class="h5 h3-md fw-bold text-dark text-uppercase mb-0">
-                        <i class="bi bi-sparkles text-warning me-2"></i> LO NUEVO
-                    </h2>
+                    <p class="banner-titulo fw-bold text-dark text-uppercase mb-0">
+                        <i class="bi bi-stars text-warning me-2" aria-hidden="true"></i>Lo nuevo
+                    </p>
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <div class="p-3 p-md-4 bg-white border border-secondary rounded-3 text-center shadow-sm h-100 d-flex align-items-center justify-content-center">
-                    <h2 class="h5 h3-md fw-bold text-dark text-uppercase mb-0">
-                        <i class="bi bi-fire text-danger me-2"></i> LO MÁS VENDIDO
-                    </h2>
+                    <p class="banner-titulo fw-bold text-dark text-uppercase mb-0">
+                        <i class="bi bi-fire text-danger me-2" aria-hidden="true"></i>Lo más vendido
+                    </p>
                 </div>
             </div>
         </section>
 
         <!-- 4. MARCAS -->
-        <section class="mb-4 mb-md-5">
-            <h3 class="h6 h5-md text-uppercase fw-bold text-muted mb-2 mb-md-3">Nuestras Marcas</h3>
-            <div class="d-flex gap-2 gap-md-4 overflow-x-auto pb-2 justify-content-lg-between align-items-center bg-white p-3 p-md-4 border rounded-3 shadow-sm" style="scrollbar-width: thin;">
-                <div class="brand-circle rounded-circle bg-light border border-secondary d-flex align-items-center justify-content-center text-center p-1 flex-shrink-0 shadow-sm fw-bold small">Skechers</div>
-                <div class="brand-circle rounded-circle bg-light border border-secondary d-flex align-items-center justify-content-center text-center p-1 flex-shrink-0 shadow-sm fw-bold small">Nike</div>
-                <div class="brand-circle rounded-circle bg-light border border-secondary d-flex align-items-center justify-content-center text-center p-1 flex-shrink-0 shadow-sm fw-bold small">Adidas</div>
-                <div class="brand-circle rounded-circle bg-light border border-secondary d-flex align-items-center justify-content-center text-center p-1 flex-shrink-0 shadow-sm fw-bold small">Vans</div>
-                <div class="brand-circle rounded-circle bg-light border border-secondary d-flex align-items-center justify-content-center text-center p-1 flex-shrink-0 shadow-sm fw-bold small">Converse</div>
-                <div class="brand-circle rounded-circle bg-light border border-secondary d-flex align-items-center justify-content-center text-center p-1 flex-shrink-0 shadow-sm fw-bold small">New Balance</div>
+        <section class="mb-4 mb-md-5" aria-labelledby="titulo-marcas">
+            <h2 id="titulo-marcas" class="titulo-seccion text-uppercase fw-bold text-muted mb-2 mb-md-3">Nuestras marcas</h2>
+            <div class="bg-white p-3 p-md-4 border rounded-3 shadow-sm overflow-x-auto" tabindex="0" role="region" aria-label="Lista de marcas, desliza para ver más" style="scrollbar-width: thin;">
+                <ul class="list-unstyled d-flex gap-2 gap-md-4 mb-0 justify-content-lg-between align-items-center">
+                    <li class="brand-circle rounded-circle bg-light border border-secondary d-flex align-items-center justify-content-center text-center p-1 flex-shrink-0 shadow-sm fw-bold small">Skechers</li>
+                    <li class="brand-circle rounded-circle bg-light border border-secondary d-flex align-items-center justify-content-center text-center p-1 flex-shrink-0 shadow-sm fw-bold small">Nike</li>
+                    <li class="brand-circle rounded-circle bg-light border border-secondary d-flex align-items-center justify-content-center text-center p-1 flex-shrink-0 shadow-sm fw-bold small">Adidas</li>
+                    <li class="brand-circle rounded-circle bg-light border border-secondary d-flex align-items-center justify-content-center text-center p-1 flex-shrink-0 shadow-sm fw-bold small">Vans</li>
+                    <li class="brand-circle rounded-circle bg-light border border-secondary d-flex align-items-center justify-content-center text-center p-1 flex-shrink-0 shadow-sm fw-bold small">Converse</li>
+                    <li class="brand-circle rounded-circle bg-light border border-secondary d-flex align-items-center justify-content-center text-center p-1 flex-shrink-0 shadow-sm fw-bold small">New Balance</li>
+                </ul>
             </div>
         </section>
 
-        <!-- 5. GRILLA DE PRODUCTOS (2 Columnas en Móvil | 4 Columnas en Computadora) -->
-        <section id="catalogo" class="mb-5">
-            <div class="d-flex justify-content-between align-items-center mb-3 mb-md-4">
-                <h3 class="h6 h4-md text-uppercase fw-bold text-muted text-dark-md mb-0">Todos los Modelos</h3>
-                <span class="badge bg-dark">19 Modelos</span>
-            </div>
+        <!-- 5. CATÁLOGO -->
+        <section id="catalogo" class="mb-5" aria-labelledby="titulo-catalogo">
+            <h2 id="titulo-catalogo" class="titulo-seccion text-uppercase fw-bold text-dark mb-3 mb-md-4">Todos los modelos</h2>
 
-            <div class="row g-2 g-md-3 g-lg-4">
+            <ul class="row g-2 g-md-3 g-lg-4 list-unstyled mb-0">
 
                 <!-- ADIDAS -->
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/adidas/Campus 00s Shoes.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="Campus 00s Shoes">
+                <li class="col-6 col-md-4 col-lg-3">
+                    <article class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
+                        <img src="img/adidas/Campus 00s Shoes.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" width="400" height="300" loading="lazy" alt="Zapatillas Adidas Campus 00s">
                         <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">Campus 00s Shoes</h4>
+                            <div>
+                                <h3 class="h6 fw-bold mb-0 text-truncate" title="Campus 00s Shoes">Campus 00s Shoes</h3>
+                                <p class="small text-muted mb-0">Adidas</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$110.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20el%20modelo%20Campus%2000s%20Shoes" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
+                                <p class="precio text-dark mb-0">$110.00</p>
+                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20el%20modelo%20Campus%2000s%20Shoes" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark px-2 px-md-3" aria-label="Consultar Campus 00s Shoes por WhatsApp (se abre en una pestaña nueva)">Consultar</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </li>
 
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/adidas/Daily 4.0 Shoes.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="Daily 4.0 Shoes">
+                <li class="col-6 col-md-4 col-lg-3">
+                    <article class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
+                        <img src="img/adidas/Daily 4.0 Shoes.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" width="400" height="300" loading="lazy" alt="Zapatillas Adidas Daily 4.0">
                         <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">Daily 4.0 Shoes</h4>
+                            <div>
+                                <h3 class="h6 fw-bold mb-0 text-truncate" title="Daily 4.0 Shoes">Daily 4.0 Shoes</h3>
+                                <p class="small text-muted mb-0">Adidas</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$85.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20el%20modelo%20Daily%204.0%20Shoes" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
+                                <p class="precio text-dark mb-0">$85.00</p>
+                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20el%20modelo%20Daily%204.0%20Shoes" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark px-2 px-md-3" aria-label="Consultar Daily 4.0 Shoes por WhatsApp (se abre en una pestaña nueva)">Consultar</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </li>
 
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/adidas/Galaxy 7 Running Shoes .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="Galaxy 7 Running Shoes">
+                <li class="col-6 col-md-4 col-lg-3">
+                    <article class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
+                        <img src="img/adidas/Galaxy 7 Running Shoes .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" width="400" height="300" loading="lazy" alt="Zapatillas Adidas Galaxy 7 para correr">
                         <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">Galaxy 7 Running</h4>
+                            <div>
+                                <h3 class="h6 fw-bold mb-0 text-truncate" title="Galaxy 7 Running">Galaxy 7 Running</h3>
+                                <p class="small text-muted mb-0">Adidas</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$75.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20el%20modelo%20Galaxy%207%20Running" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
+                                <p class="precio text-dark mb-0">$75.00</p>
+                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20el%20modelo%20Galaxy%207%20Running" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark px-2 px-md-3" aria-label="Consultar Galaxy 7 Running por WhatsApp (se abre en una pestaña nueva)">Consultar</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </li>
 
                 <!-- CONVERSE -->
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/converse/Chuck Taylor All Star Embroidered Market Essentials .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="Chuck Taylor Embroidered">
+                <li class="col-6 col-md-4 col-lg-3">
+                    <article class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
+                        <img src="img/converse/Chuck Taylor All Star Embroidered Market Essentials .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" width="400" height="300" loading="lazy" alt="Zapatillas Converse Chuck Taylor All Star bordadas">
                         <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">Chuck Taylor Embroidered</h4>
+                            <div>
+                                <h3 class="h6 fw-bold mb-0 text-truncate" title="Chuck Taylor Embroidered">Chuck Taylor Embroidered</h3>
+                                <p class="small text-muted mb-0">Converse</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$90.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Chuck%20Taylor%20Embroidered" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
+                                <p class="precio text-dark mb-0">$90.00</p>
+                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Chuck%20Taylor%20Embroidered" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark px-2 px-md-3" aria-label="Consultar Chuck Taylor Embroidered por WhatsApp (se abre en una pestaña nueva)">Consultar</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </li>
 
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/converse/Chuck Taylor All Star Malden Street medio.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="Chuck Taylor Malden Medio">
+                <li class="col-6 col-md-4 col-lg-3">
+                    <article class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
+                        <img src="img/converse/Chuck Taylor All Star Malden Street medio.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" width="400" height="300" loading="lazy" alt="Zapatillas Converse Chuck Taylor Malden Street de caña media">
                         <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">Chuck Taylor Malden Mid</h4>
+                            <div>
+                                <h3 class="h6 fw-bold mb-0 text-truncate" title="Chuck Taylor Malden Mid">Chuck Taylor Malden Mid</h3>
+                                <p class="small text-muted mb-0">Converse</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$85.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Chuck%20Taylor%20Malden%20Mid" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
+                                <p class="precio text-dark mb-0">$85.00</p>
+                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Chuck%20Taylor%20Malden%20Mid" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark px-2 px-md-3" aria-label="Consultar Chuck Taylor Malden Mid por WhatsApp (se abre en una pestaña nueva)">Consultar</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </li>
 
                 <!-- NEW BALANCE -->
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/newbalance/NB Numeric 440 V2 Trail Low .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="NB Numeric 440 V2">
+                <li class="col-6 col-md-4 col-lg-3">
+                    <article class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
+                        <img src="img/newbalance/NB Numeric 440 V2 Trail Low .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" width="400" height="300" loading="lazy" alt="Zapatillas New Balance Numeric 440 V2">
                         <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">NB Numeric 440 V2</h4>
+                            <div>
+                                <h3 class="h6 fw-bold mb-0 text-truncate" title="NB Numeric 440 V2">NB Numeric 440 V2</h3>
+                                <p class="small text-muted mb-0">New Balance</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$100.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20NB%20Numeric%20440%20V2" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
+                                <p class="precio text-dark mb-0">$100.00</p>
+                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20NB%20Numeric%20440%20V2" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark px-2 px-md-3" aria-label="Consultar NB Numeric 440 V2 por WhatsApp (se abre en una pestaña nueva)">Consultar</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </li>
 
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/newbalance/NB Numeric 480.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="NB Numeric 480">
+                <li class="col-6 col-md-4 col-lg-3">
+                    <article class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
+                        <img src="img/newbalance/NB Numeric 480.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" width="400" height="300" loading="lazy" alt="Zapatillas New Balance Numeric 480">
                         <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">NB Numeric 480</h4>
+                            <div>
+                                <h3 class="h6 fw-bold mb-0 text-truncate" title="NB Numeric 480">NB Numeric 480</h3>
+                                <p class="small text-muted mb-0">New Balance</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$110.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20NB%20Numeric%20480" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
+                                <p class="precio text-dark mb-0">$110.00</p>
+                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20NB%20Numeric%20480" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark px-2 px-md-3" aria-label="Consultar NB Numeric 480 por WhatsApp (se abre en una pestaña nueva)">Consultar</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </li>
 
                 <!-- NIKE -->
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/nike/Nike Air Max Moto 2K .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="Nike Air Max Moto 2K">
+                <li class="col-6 col-md-4 col-lg-3">
+                    <article class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
+                        <img src="img/nike/Nike Air Max Moto 2K .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" width="400" height="300" loading="lazy" alt="Zapatillas Nike Air Max Moto 2K">
                         <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">Nike Air Max Moto 2K</h4>
+                            <div>
+                                <h3 class="h6 fw-bold mb-0 text-truncate" title="Nike Air Max Moto 2K">Nike Air Max Moto 2K</h3>
+                                <p class="small text-muted mb-0">Nike</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$150.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Nike%20Air%20Max%20Moto%202K" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
+                                <p class="precio text-dark mb-0">$150.00</p>
+                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Nike%20Air%20Max%20Moto%202K" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark px-2 px-md-3" aria-label="Consultar Nike Air Max Moto 2K por WhatsApp (se abre en una pestaña nueva)">Consultar</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </li>
 
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/nike/Nike Dunk Low SE .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="Nike Dunk Low SE">
+                <li class="col-6 col-md-4 col-lg-3">
+                    <article class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
+                        <img src="img/nike/Nike Dunk Low SE .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" width="400" height="300" loading="lazy" alt="Zapatillas Nike Dunk Low SE">
                         <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">Nike Dunk Low SE</h4>
+                            <div>
+                                <h3 class="h6 fw-bold mb-0 text-truncate" title="Nike Dunk Low SE">Nike Dunk Low SE</h3>
+                                <p class="small text-muted mb-0">Nike</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$130.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Nike%20Dunk%20Low%20SE" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
+                                <p class="precio text-dark mb-0">$130.00</p>
+                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Nike%20Dunk%20Low%20SE" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark px-2 px-md-3" aria-label="Consultar Nike Dunk Low SE por WhatsApp (se abre en una pestaña nueva)">Consultar</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </li>
 
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/nike/Nike P-6000 .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="Nike P-6000">
+                <li class="col-6 col-md-4 col-lg-3">
+                    <article class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
+                        <img src="img/nike/Nike P-6000 .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" width="400" height="300" loading="lazy" alt="Zapatillas Nike P-6000">
                         <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">Nike P-6000</h4>
+                            <div>
+                                <h3 class="h6 fw-bold mb-0 text-truncate" title="Nike P-6000">Nike P-6000</h3>
+                                <p class="small text-muted mb-0">Nike</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$120.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Nike%20P-6000" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
+                                <p class="precio text-dark mb-0">$120.00</p>
+                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Nike%20P-6000" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark px-2 px-md-3" aria-label="Consultar Nike P-6000 por WhatsApp (se abre en una pestaña nueva)">Consultar</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </li>
 
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/nike/Nike V5 RNR.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="Nike V5 RNR">
+                <li class="col-6 col-md-4 col-lg-3">
+                    <article class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
+                        <img src="img/nike/Nike V5 RNR.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" width="400" height="300" loading="lazy" alt="Zapatillas Nike V5 RNR">
                         <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">Nike V5 RNR</h4>
+                            <div>
+                                <h3 class="h6 fw-bold mb-0 text-truncate" title="Nike V5 RNR">Nike V5 RNR</h3>
+                                <p class="small text-muted mb-0">Nike</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$125.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Nike%20V5%20RNR" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
+                                <p class="precio text-dark mb-0">$125.00</p>
+                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Nike%20V5%20RNR" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark px-2 px-md-3" aria-label="Consultar Nike V5 RNR por WhatsApp (se abre en una pestaña nueva)">Consultar</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </li>
 
-                <!-- SKECHERS -->
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/skechers/BOBS Sport Diego .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="BOBS Sport Diego">
-                        <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">BOBS Sport Diego</h4>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$65.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20BOBS%20Sport%20Diego" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/skechers/D`Lite Max.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="D'Lite Max">
-                        <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">D'Lite Max</h4>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$75.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20D'Lite%20Max" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/skechers/Skechers Slip-ins.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="Skechers Slip-ins">
-                        <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">Skechers Slip-ins</h4>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$85.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Skechers%20Slip-ins" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- VANS -->
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/vans/Old Skool Shoe.jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="Old Skool Shoe">
-                        <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">Old Skool Shoe</h4>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$70.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Old%20Skool%20Shoe" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/vans/Skate Sk8-Hi Shoe .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="Skate Sk8-Hi Shoe">
-                        <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">Skate Sk8-Hi Shoe</h4>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$85.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20Skate%20Sk8-Hi%20Shoe" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card card-product bg-white text-dark border border-secondary h-100 shadow-sm">
-                        <img src="img/vans/UltraRange 2.0 Shoe .jpeg" class="card-img-top object-fit-cover p-1 p-md-2 rounded-3" style="height: 150px;" alt="UltraRange 2.0 Shoe">
-                        <div class="card-body p-2 p-md-3 d-flex flex-column justify-content-between">
-                            <h4 class="h6 fw-bold mb-1 text-truncate">UltraRange 2.0 Shoe</h4>
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <span class="small fs-6-md fw-bold text-dark">$105.00</span>
-                                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20UltraRange%202.0%20Shoe" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 px-md-3" style="font-size: 0.75rem;">Ver</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            </ul>
         </section>
 
-        <!-- 6. TABLA DE GUÍA DE TALLAS -->
-        <section id="tallas" class="mb-5">
-            <div class="card bg-white border border-secondary rounded-4 p-3 p-md-5 shadow-sm">
-                <h3 class="h5 h4-md text-uppercase fw-bold text-dark mb-3"><i class="bi bi-table me-2 text-warning"></i> Guía de Tallas y Precios</h3>
-                <p class="text-muted small fs-6-md mb-4">Consulta las tallas disponibles y rangos aproximados para cada categoría.</p>
+        <!-- 6. GUÍA DE TALLAS -->
+        <section id="tallas" class="mb-5" aria-labelledby="titulo-tallas">
+            <h2 id="titulo-tallas" class="titulo-seccion text-uppercase fw-bold text-dark mb-3">Guía de tallas</h2>
+            <div class="bg-white border rounded-3 shadow-sm p-2 p-md-3">
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered border-secondary align-middle text-center mb-0">
-                        <thead class="table-dark text-white">
+                    <table class="table table-striped align-middle text-center mb-0">
+                        <caption class="small text-muted text-start">Medidas referenciales. Pueden variar según la marca y el modelo; ante la duda, escríbenos por WhatsApp.</caption>
+                        <thead>
                             <tr>
-                                <th>Categoría</th>
-                                <th>Tallas US</th>
-                                <th>Rango de Precios</th>
-                                <th>Disponibilidad</th>
+                                <th scope="col">Talla US</th>
+                                <th scope="col">Talla EU</th>
+                                <th scope="col">Largo del pie (cm)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="fw-bold">Hombre</td>
-                                <td>7 – 12</td>
-                                <td>$80 - $180</td>
-                                <td><span class="badge bg-success">En Stock</span></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bold">Mujer</td>
-                                <td>5 – 9.5</td>
-                                <td>$75 - $160</td>
-                                <td><span class="badge bg-success">En Stock</span></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bold">Unisex / Casual</td>
-                                <td>6 – 11</td>
-                                <td>$70 - $140</td>
-                                <td><span class="badge bg-warning text-dark">Pocas unidades</span></td>
-                            </tr>
+                            <tr><th scope="row">7</th><td>40</td><td>25</td></tr>
+                            <tr><th scope="row">8</th><td>41</td><td>26</td></tr>
+                            <tr><th scope="row">9</th><td>42.5</td><td>27</td></tr>
+                            <tr><th scope="row">10</th><td>44</td><td>28</td></tr>
+                            <tr><th scope="row">11</th><td>45</td><td>29</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- 7. SECCIÓN CONTACTO / WHATSAPP -->
-        <section id="contacto" class="mb-5">
-            <div class="card bg-white border border-2 border-secondary rounded-4 p-4 p-md-5 text-center shadow-lg">
-                <h3 class="h5 h3-md text-uppercase fw-bold text-dark mb-2 mb-md-3"><i class="bi bi-whatsapp text-success me-2"></i> ¿Listo para hacer tu pedido?</h3>
-                <p class="text-muted small fs-6-md mb-4 mx-auto" style="max-width: 600px;">Escríbenos directamente a nuestro WhatsApp para apartar tu modelo, verificar tallas o resolver cualquier duda.</p>
-                <a href="https://wa.me/593963606754?text=Hola,%20estoy%20interesado%20en%20los%20productos%20de%20Disruptive%20Shoes" target="_blank" class="btn btn-success btn-lg fw-bold py-3 shadow w-100 w-md-auto mx-auto" style="max-width: 400px;">
-                    <i class="bi bi-whatsapp me-2 fs-5"></i> Chatear por WhatsApp
-                </a>
+        <!-- 7. CONTACTO: FORMULARIO + MAPA -->
+        <section id="contacto" class="mb-5" aria-labelledby="titulo-contacto">
+            <h2 id="titulo-contacto" class="titulo-seccion text-uppercase fw-bold text-dark mb-3">Contáctanos</h2>
+
+            <div class="row g-3 g-lg-4">
+                <!-- Formulario -->
+                <div class="col-12 col-lg-6">
+                    <div class="bg-white border rounded-3 shadow-sm p-3 p-md-4 h-100">
+                        <p class="text-secondary">Llena el formulario y se abrirá WhatsApp con tu consulta lista para enviar.</p>
+
+                        <form id="formContacto" novalidate>
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label fw-semibold">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" autocomplete="name" required minlength="2" aria-describedby="ayuda-nombre">
+                                <div id="ayuda-nombre" class="invalid-feedback">Escribe tu nombre (mínimo 2 letras).</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="correo" class="form-label fw-semibold">Correo electrónico</label>
+                                <input type="email" class="form-control" id="correo" name="correo" autocomplete="email" required aria-describedby="ayuda-correo">
+                                <div id="ayuda-correo" class="invalid-feedback">Escribe un correo válido, por ejemplo nombre@correo.com.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="mensaje" class="form-label fw-semibold">Mensaje</label>
+                                <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required minlength="10" aria-describedby="ayuda-mensaje"></textarea>
+                                <div id="ayuda-mensaje" class="invalid-feedback">Cuéntanos qué modelo o talla buscas (mínimo 10 caracteres).</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success fw-bold w-100">
+                                <i class="bi bi-whatsapp me-1" aria-hidden="true"></i> Enviar por WhatsApp
+                            </button>
+                            <p id="estadoForm" class="small text-success mt-2 mb-0" role="status" aria-live="polite"></p>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Mapa -->
+                <div class="col-12 col-lg-6">
+                    <div class="bg-white border rounded-3 shadow-sm p-2 h-100 d-flex flex-column">
+                        <div class="mapa-contenedor flex-grow-1 rounded-2 overflow-hidden">
+                            <!-- CAMBIA "Ecuador" por la dirección real de tu tienda (ej: Av. Amazonas y Naciones Unidas, Quito) -->
+                            <iframe
+                                title="Mapa de ubicación de Disruptive Shoes"
+                                src="https://www.google.com/maps?q=Ecuador&output=embed"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
     </main>
 
-    <!-- 8. FOOTER / REDES SOCIALES -->
-    <footer class="bg-white text-center py-4 border-top">
-        <div class="container-xl d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-            <p class="small text-muted mb-0">&copy; Disruptive Shoes</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="#" class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 40px; height: 40px;"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 40px; height: 40px;"><i class="bi bi-tiktok"></i></a>
-                <a href="#" class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 40px; height: 40px;"><i class="bi bi-instagram"></i></a>
-            </div>
+    <footer class="bg-white border-top py-4">
+        <div class="container-xl text-center">
+            <!-- CAMBIA los enlaces "TU_USUARIO" / "TU_PAGINA" por los de tu tienda -->
+            <nav aria-label="Redes sociales">
+                <p class="fw-semibold mb-2">Síguenos</p>
+                <ul class="list-unstyled d-flex justify-content-center gap-3 mb-3">
+                    <li>
+                        <a href="https://www.tiktok.com/@TU_USUARIO" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark rounded-circle red-social" aria-label="TikTok de Disruptive Shoes (se abre en una pestaña nueva)">
+                            <i class="bi bi-tiktok" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com/TU_PAGINA" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark rounded-circle red-social" aria-label="Facebook de Disruptive Shoes (se abre en una pestaña nueva)">
+                            <i class="bi bi-facebook" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/TU_USUARIO" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark rounded-circle red-social" aria-label="Instagram de Disruptive Shoes (se abre en una pestaña nueva)">
+                            <i class="bi bi-instagram" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <p class="small text-secondary mb-0">&copy; <span id="anio">2026</span> Disruptive Shoes. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!-- Bootstrap 5 JS Bundle -->
+    <!-- Bootstrap JS (necesario para el menú lateral) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Año automático en el footer
+        document.getElementById('anio').textContent = new Date().getFullYear();
+
+        // Formulario -> WhatsApp
+        (function () {
+            var NUMERO = '593963606754';
+            var form = document.getElementById('formContacto');
+            var estado = document.getElementById('estadoForm');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                estado.textContent = '';
+
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    var primerInvalido = form.querySelector(':invalid');
+                    if (primerInvalido) primerInvalido.focus();
+                    return;
+                }
+
+                var nombre = form.nombre.value.trim();
+                var correo = form.correo.value.trim();
+                var mensaje = form.mensaje.value.trim();
+
+                var texto = 'Hola, soy ' + nombre + '.\n' +
+                            'Mi correo es: ' + correo + '\n\n' +
+                            'Consulta: ' + mensaje;
+
+                var url = 'https://wa.me/' + NUMERO + '?text=' + encodeURIComponent(texto);
+                window.open(url, '_blank', 'noopener,noreferrer');
+
+                estado.textContent = 'Listo, se abrió WhatsApp con tu mensaje.';
+                form.reset();
+                form.classList.remove('was-validated');
+            });
+        })();
+    </script>
 </body>
 </html>
